@@ -1,4 +1,6 @@
 import re
+
+from imputegap.algorithms.ssdts import ssdts_impute
 from imputegap.tools import utils
 from imputegap.recovery.downstream import Downstream
 from imputegap.recovery.evaluation import Evaluation
@@ -1727,6 +1729,38 @@ class Imputation:
         HKMF_T :
             Imputation method using Hankel Matrix Factorization to recover from blackouts in tagged time series.
         """
+
+        class SSDTS(BaseImputer):
+            """
+            SSDTS class to impute missing values with the mean value of the ground truth.
+
+            Methods
+            -------
+            impute(self, params=None):
+                Perform imputation by replacing missing values with the mean value of the ground truth.
+            """
+            algorithm = "ssdts_impute"
+
+            def impute(self, params=None):
+                """
+                Impute missing values by replacing them with the mean value of the ground truth.
+                Template for adding external new algorithm
+
+                Parameters
+                ----------
+                params : dict, optional
+                    Dictionary of algorithm parameters (default is None).
+
+                Returns
+                -------
+                self : MinImpute
+                    The object with `recov_data` set.
+                """
+                from imputegap.algorithms.ssdts import ssdts_impute
+
+                self.recov_data = ssdts_impute(self.incomp_data, params)
+
+                return self
 
 
         class MRNN(BaseImputer):
