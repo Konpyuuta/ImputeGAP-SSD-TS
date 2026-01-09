@@ -61,6 +61,7 @@ einops==0.8.0
 # automl
 ray==2.41.0
 ray[tune]==2.41.0
+ray[train]==2.41.0
 
 
 fire==0.7.0
